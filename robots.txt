@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://harshchoubey712.github.io/java-learning-lab/sitemap.xml
