@@ -39,6 +39,158 @@ function updateProgress(){
 }
 function setUrl(){const path='#/lesson/'+lesson().id;if(location.hash!==path)history.pushState(null,'',path);document.body.classList.add('lesson-route');document.title=lesson().topic+' · Java with Harsh';}
 function goHome(){stopPlayer();document.body.classList.remove('lesson-route');document.title='Java with Harsh – Java, Spring Boot & QA Automation Course';if(location.hash!=='#syllabus')history.pushState(null,'','#syllabus');$('#syllabus').scrollIntoView({behavior:'smooth'});}
+
+function whyFor(l){
+ const t=l.topic.toLowerCase();
+ const exact=[
+  [/jdk vs jre vs jvm/,'Ye separation isliye exist karti hai taaki developer tools, runtime libraries aur bytecode execution engine ki responsibilities clear rahen. Compile karne ke liye JDK chahiye; run karne ke liye compatible runtime/JVM.'],
+  [/methods introduction/,'Method ka main purpose repeated logic ko ek meaningful naam dena hai. Agar same logic 5 jagah copy karoge, bug fix bhi multiple jagah karna padega; method us logic ka single reusable home banata hai.'],
+  [/arrays introduction/,'Array tab useful hai jab same type ke multiple values ko ek ordered, fixed-size structure me rakhna ho. Har value ke liye alag variable banane ke bajay index se access milta hai.'],
+  [/this keyword/,'this tab zaroori hota hai jab current object ko explicitly refer karna ho—especially field aur parameter ka naam same ho, constructor chaining karni ho, ya fluent API me same object return karna ho.'],
+  [/inheritance/,'Inheritance related classes ke common behavior ko reuse karne aur is-a relationship model karne ke liye hoti hai. Sirf code reuse ke liye inheritance force karna tight coupling create kar sakta hai.'],
+  [/polymorphism/,'Polymorphism caller ko concrete implementation se loosely coupled rakhta hai. Same contract/reference ke through different runtime behavior mil sakta hai.'],
+  [/streams/,'Streams collection ko manually loop karne ke bajay data-processing pipeline ke form me express karte hain: source se filter/map aur phir terminal result.'],
+  [/rest controller/,'REST Controller HTTP request ko Java method tak map karta hai aur response ko HTTP response me convert karta hai. Business logic ko controller me bharna nahi; orchestration thin rakhna better hai.'],
+  [/dependency injection/,'Dependency Injection object ko apni dependency khud create karne ke bajay bahar se receive karne deta hai. Isse replacement, testing aur configuration easy hoti hai.'],
+  [/kafka basics/,'Kafka producers aur consumers ko time aur availability ke level par decouple karta hai. Event durable log me store hota hai, isliye consumer baad me bhi process kar sakta hai.'],
+  [/docker basics/,'Docker environment ko repeatable banata hai: same image se local, CI aur server par predictable process start kiya ja sakta hai. Works-on-my-machine gap reduce hota hai.'],
+  [/rag basics/,'RAG model ko answer se pehle external evidence retrieve karne deta hai. Goal model memory par blind trust ke bajay relevant source context provide karna hai.']
+ ];
+ for(const [re,v] of exact) if(re.test(t)) return v;
+ if(/keyword|identifier|variable|data type|operator|wrapper/.test(t)) return 'Ye basic language building block compiler ko clear intent deta hai: data ka naam kya hai, type kya hai, aur operation ka meaning kya hai. Strong basics ke bina later OOP/Spring code sirf syntax yaad karne jaisa lagta hai.';
+ if(/if\/else|switch|loop|jump/.test(t)) return 'Program ko sirf top-to-bottom fixed script nahi rehna; runtime data ke basis par decision, repetition aur flow control chahiye. Ye construct wahi control provide karta hai.';
+ if(/method|varargs|argument|access modifier|static vs instance/.test(t)) return 'Methods behavior ko organize karte hain. Is topic ka purpose method ko reusable, correctly scoped aur caller-friendly banana hai.';
+ if(/array/.test(t)) return 'Related values ko predictable structure me store/process karne ke liye array rules samajhna zaroori hai—especially size, index, reference behavior aur utility operations.';
+ if(/string/.test(t)) return 'Text almost har application me hota hai. Java String design, immutability, comparison aur efficient mutation ke rules samajhne se subtle bugs aur performance issues avoid hote hain.';
+ if(/class|object|constructor|encapsulation|inheritance|polymorphism|abstraction|package|super|object class/.test(t)) return 'OOP ka goal data aur behavior ko meaningful domain objects me organize karna hai. Is topic se object creation, reuse, visibility ya runtime behavior ka ek specific part control hota hai.';
+ if(/interface/.test(t)) return 'Interface implementation se pehle contract define karta hai. Caller kya capability chahiye par depend kar sakta hai, kaunsi concrete class hai par nahi.';
+ if(/exception|try|catch|finally|throw|nullpointer/.test(t)) return 'Failures normal control flow se alag handle karne padte hain. Exception mechanism error ko signal, propagate, recover ya translate karne ka structured way deta hai.';
+ if(/regex|matcher|character class|quantifier/.test(t)) return 'Text pattern ko manually character-by-character check karna verbose hota hai. Regex compact pattern language deta hai, lekin readability aur correctness carefully handle karni hoti hai.';
+ if(/memory|heap|stack|garbage|leak/.test(t)) return 'Java memory automatically managed hai, but object lifetime free nahi hai. Reference reachability aur memory areas samajhne se leaks, OOM aur concurrency behavior reason karna easy hota hai.';
+ if(/generic|wildcard|bounded|erasure/.test(t)) return 'Generics compile-time type safety ke saath reusable containers/APIs banate hain. Casts aur wrong-type runtime failures reduce hote hain.';
+ if(/collection|list|set|queue|map|iterator|comparable|comparator|hashmap|hashcode/.test(t)) return 'Real applications me data ko sirf store nahi, search, order, deduplicate, map aur traverse bhi karna hota hai. Collections different access patterns ke liye purpose-built structures deti hain.';
+ if(/lambda|predicate|consumer|supplier|method reference|collector|optional|map\/filter\/reduce/.test(t)) return 'Java 8+ features behavior ko value ki tarah pass karne aur data transformation ko declarative banane ke liye aaye. Goal boilerplate kam aur intent clearer karna hai.';
+ if(/date|time|duration|period|formatter/.test(t)) return 'Date/time bugs timezone, calendar aur duration semantics mix karne se aate hain. Dedicated immutable types intention clear rakhte hain.';
+ if(/thread|synchron|lock|deadlock|future|priority/.test(t)) return 'Concurrency multiple tasks ko overlap karne deti hai, lekin shared state race conditions create kar sakta hai. Is topic ka purpose execution aur coordination ke specific rule ko control karna hai.';
+ if(/io|reader|writer|file|buffer|nio/.test(t)) return 'External data ko read/write karte waqt bytes, characters, buffering aur resources ki lifecycle manage karni hoti hai. Ye APIs wahi boundary handle karti hain.';
+ if(/network|socket|serversocket|url/.test(t)) return 'Do processes ya machines ko data exchange karne ke liye address, connection aur protocol boundary chahiye. Networking APIs us communication ko Java objects me expose karti hain.';
+ if(/jdbc|connection|statement|resultset|metadata|pool/.test(t)) return 'Java application aur relational database ke beech standard contract chahiye. JDBC connection, SQL execution, transaction aur result reading ko structured API deta hai.';
+ if(/maven|junit|mockito|rest assured|testng|component|contract|testcontainer/.test(t)) return 'Testing/build tools repeatability aur feedback ke liye hain: same build, isolated test, controlled dependency aur reliable assertion ko automate karna.';
+ if(/spring|ioc|bean|scope|profile|configuration/.test(t)) return 'Spring object wiring aur application infrastructure ko framework-managed banata hai, taaki business code creation/configuration boilerplate se separate rahe.';
+ if(/controller|service layer|validation|actuator|boot project|configuration properties/.test(t)) return 'Spring Boot convention aur auto-configuration se production-style application setup simplify karta hai; har layer ki responsibility separate rakhna maintainability ke liye important hai.';
+ if(/jpa|entity|repository|relationship|transaction|flyway|oracle|postgres|pagination/.test(t)) return 'Persistence layer ka goal Java domain model aur durable database state ke beech safe, transactional mapping rakhna hai.';
+ if(/microservice|service boundary|feign|webclient|resilience|discovery|gateway|observability|tracing/.test(t)) return 'Distributed systems me network failure, ownership aur observability first-class concerns hain. Is topic ka purpose services ko independently evolve karte hue integration safe rakhna hai.';
+ if(/kafka|producer|consumer|offset|retry|dlq|idempot/.test(t)) return 'Event-driven flow me producer aur consumer decoupled hote hain. Delivery, retry, offset aur duplicate handling explicitly design karna padta hai.';
+ if(/docker|compose|jenkins|github actions|quality gate/.test(t)) return 'Delivery pipeline ka goal same software ko repeatable environment me build, test aur release karna hai. Automation manual drift reduce karti hai.';
+ if(/chatclient|prompt|structured output|tool calling|embedding|vector|advisor|spring ai/.test(t)) return 'AI integration ko plain string call se production feature banane ke liye model boundary, structure, retrieval, tool permission aur observability manage karni padti hai.';
+ if(/rag|chunk|retriev|ground|mcp|ai test|failure analysis|evaluation|guardrail/.test(t)) return 'AI-for-QA flow trustworthy tab banta hai jab evidence retrieval, tool boundary, structured evaluation aur failure handling explicit ho—not just model se answer le lo.';
+ return 'Is concept ka purpose code ko clearer responsibility dena hai. Pehle problem samjho, phir syntax dekho; syntax yaad karna secondary hai.';
+}
+function analogyFor(l){
+ const t=l.topic.toLowerCase();
+ const rules=[
+  [/jdk vs jre vs jvm/,'Restaurant analogy: **JDK = full kitchen plus chef tools**, **JRE = required runtime setup**, aur **JVM = actual engine jo bytecode execute karta hai**. Run karne wale user ko compiler tools zaroori nahi.'],
+  [/input & output/,'Reception desk socho: input wo information hai jo visitor deta hai; program usko process karta hai; output receipt ya display hai jo system wapas deta hai.'],
+  [/identifier/,'Office me har employee ka meaningful badge-name hota hai. Identifier variable, method ya class ko wahi readable naam deta hai; naming rules badge-format rules jaise hain.'],
+  [/keyword/,'Traffic sign STOP ka fixed meaning hota hai; tum usko apne variable ka custom meaning nahi de sakte. Java keyword ka compiler-defined meaning fixed hota hai.'],
+  [/variable/,'Variable ko **labelled box** samjho: label = name, box ka allowed shape = data type, andar current value. Value replace ho sakti hai, type rule fixed rehta hai.'],
+  [/data type/,'Warehouse me liquid tank, document drawer aur pallet alag cheezein hold karte hain. Data type compiler ko batata hai kis kind ka value store hoga aur kaunse operations valid hain.'],
+  [/wrapper/,'Primitive ko courier parcel me wrap karna socho. int lightweight raw value hai; Integer us value ko object form deta hai jise generic/object APIs use kar sakti hain.'],
+  [/operator/,'Calculator ke buttons jaise +, -, >, && operands par defined operation perform karte hain.'],
+  [/if\/else/,'Airport security gate: condition true ho to lane A, false ho to lane B. Program bhi runtime condition dekhkar branch choose karta hai.'],
+  [/switch/,'Restaurant token counter: token value ke basis par predefined counter choose hota hai. Bahut saare exact alternatives ho to switch readable ho sakta hai.'],
+  [/loop/,'Conveyor belt par 100 boxes ko same inspection se pass karna loop jaisa hai: condition true rahe to repeated action, phir update. Stop rule galat hua to belt rukega nahi.'],
+  [/jump statement/,'Playlist analogy: continue current item skip karke next par; break loop hi band; return current method se bahar.'],
+  [/methods introduction|method/,'Recipe analogy: chai banane ke steps ek recipe me define karo; har baar inputs do aur recipe call karo. Logic ek jagah maintain hota hai.'],
+  [/static vs instance/,'Apartment building: society notice board static/shared hai; har flat ka electricity reading instance-specific state hai.'],
+  [/access modifier/,'Office access badge: public lobby sabke liye, private cabin restricted, protected family/team hierarchy ke liye. Visibility ek design boundary hai.'],
+  [/varargs/,'Shopping basket jahan 1, 3 ya 10 items de sakte ho. Caller ko count flexible milta hai; method andar array-like data handle karta hai.'],
+  [/multi-dimensional array/,'Spreadsheet: row plus column se cell milta hai. 2D array me first index row choose karta hai, second us row ka element.'],
+  [/jagged array/,'Cinema rows jahan har row me seats ki count different ho. Java 2D structure arrays-of-arrays hai, isliye row lengths differ kar sakti hain.'],
+  [/array/,'Numbered lockers ki fixed row socho: har locker same type ka item rakhta hai; locker number = index; total lockers creation ke baad fixed.'],
+  [/== vs equals/,'Do ID cards compare karo: == poochta hai kya same physical object/reference hai; equals typically poochta hai kya meaningful content same hai.'],
+  [/stringbuilder/,'Whiteboard par sentence edit karna: same board par append aur replace karte jao. Immutable String me modification par naya value/object create ho sakta hai.'],
+  [/stringbuffer/,'Shared office whiteboard jahan controlled synchronized access diya jata hai. Safety milti hai, cost ke saath.'],
+  [/string/,'Printed boarding pass analogy: String immutable hai—existing printed text change nahi hota; modified text ke liye naya String value banta hai.'],
+  [/classes & objects/,'Class **house blueprint** hai; object us blueprint se bana actual house. Blueprint structure/behavior define karta hai, har house ki own state ho sakti hai.'],
+  [/constructor/,'New employee onboarding checklist: object create hote hi initial valid state set karni hoti hai. Constructor wahi setup phase hai.'],
+  [/this keyword/,'Meeting me **main khud / current person** bolna this jaisa hai. Same-name parameter ho to this.name current object ka field explicitly identify karta hai.'],
+  [/super keyword/,'Child record se parent record ko explicitly access karna super jaisa hai—parent implementation ya constructor select hota hai.'],
+  [/encapsulation/,'ATM analogy: account balance ko directly database field edit karke nahi badalte; deposit/withdraw controlled operations se state change hoti hai.'],
+  [/inheritance/,'Vehicle family: Car ek Vehicle is-a relation ho sakta hai aur common behavior inherit kar sakta hai, while car-specific behavior add karta hai.'],
+  [/polymorphism/,'Universal socket/remote: same contract se different devices apna implementation use karte hain. Caller contract use karta hai; runtime object actual behavior deta hai.'],
+  [/abstraction/,'Car driver steering aur brake use karta hai; engine combustion details hide rehti hain. Useful operation visible, unnecessary complexity hidden.'],
+  [/interface/,'Electrical socket contract: plug ko defined contract follow karna hai; andar device fan hai ya charger, implementation different ho sakti hai.'],
+  [/exception|try\/catch|finally|throw|throws/,'Fire alarm analogy: normal workflow alag; abnormal event signal hota hai, suitable handler react karta hai, cleanup rules separately run hote hain.'],
+  [/regex|matcher|character class|quantifier/,'Security gate pattern checklist: 2 letters plus 4 digits jaisi rule ko manually check karne ke bajay compact pattern define karte ho.'],
+  [/stack vs heap/,'Desk vs warehouse: method calls ke temporary local frames desk stack jaise come/go; objects shared warehouse/heap me references ke through accessible hote hain.'],
+  [/garbage|memory leak/,'Hotel rooms: jo guest/reference reachable nahi, room reclaim ho sakta hai. Unnecessary reference hold karoge to GC room free nahi samjhega.'],
+  [/generic|wildcard|bounded|erasure/,'Labelled storage crate: Box of String par clear type label hai. Compiler wrong type dalne se pehle rokta hai.'],
+  [/list/,'Train seats ki ordered list: position/index important, duplicates allowed ho sakte hain.'],
+  [/set/,'Guest-list desk: same unique guest ko duplicate entry nahi deni. Set uniqueness semantics provide karta hai.'],
+  [/queue/,'Billing counter line: generally first aaya pehle serve. Queue processing order model karti hai.'],
+  [/map/,'Phone contacts: name/key se phone/value lookup. Key-based access primary idea hai.'],
+  [/hashmap/,'Office pigeonholes: hash key ko bucket direction deta hai; equality exact key identify karti hai. hashCode aur equals contract critical hai.'],
+  [/comparator|comparable/,'Sorting contest: Comparable object ka natural rank rule hai; Comparator external judge hai jo alternate ranking rule de sakta hai.'],
+  [/lambda/,'Courier ko short instruction slip dena: full anonymous class ke bajay required behavior concise expression me pass karte ho.'],
+  [/predicate/,'Security checker jo sirf yes/no return karta hai: input leta hai aur boolean decision deta hai.'],
+  [/consumer/,'Printer operator: input leta hai, action karta hai, meaningful return value nahi deta.'],
+  [/supplier/,'Vending machine: input argument nahi, call karne par value/object supply karta hai.'],
+  [/stream/,'Factory conveyor pipeline: source items → filter station → transform station → collect/ship. Pipeline intent describe karti hai.'],
+  [/optional/,'Gift box jo value contain kar sakta hai ya empty ho sakta hai, with explicit empty handling operations.'],
+  [/localdate|date\/time/,'Calendar page LocalDate date batata hai but wall-clock time nahi; LocalTime clock hai but date nahi. Correct type intent clear karta hai.'],
+  [/thread/,'Restaurant kitchen me multiple cooks/tasks overlap kar sakte hain. Shared fridge/resource coordination ke bina race/conflict ho sakta hai.'],
+  [/synchron|lock|reentrant/,'Single washroom key: key/lock jis ke paas hai wahi critical section enter kare. Release na hua to doosre wait karenge.'],
+  [/deadlock/,'Do log: A ke paas key1 aur key2 ka wait; B ke paas key2 aur key1 ka wait. Dono forever wait kar sakte hain.'],
+  [/thread pool/,'Restaurant fixed chefs: har order ke liye naya chef hire nahi karte; limited worker pool incoming tasks process karta hai.'],
+  [/completablefuture/,'Food delivery tracking: order place karke counter par block nahi rehna; completion par next action chain ho sakta hai.'],
+  [/bufferedreader|bufferedwriter|buffer/,'Paani ek-ek drop transport karne ke bajay bucket/buffer me batch karke move karna—fewer expensive IO operations.'],
+  [/reader|writer|java io|file handling|nio/,'File/device se program tak pipeline: Reader/Writer characters ke liye translation pipe hain; buffering throughput improve karti hai.'],
+  [/socket|serversocket/,'Phone call: server known number/port par listen karta hai; client connection/socket banata hai; endpoints data exchange karte hain.'],
+  [/jdbc|preparedstatement|resultset|connection pool|transaction/,'Bank counter: connection = active counter session, prepared statement = parameterized form, transaction = all-or-nothing operations, pool = reusable counters.'],
+  [/maven/,'Construction project manager: pom.xml blueprint/dependencies batata hai; Maven lifecycle compile, test, package repeatably execute karta hai.'],
+  [/junit/,'Examiner: setup karo, action run karo, expected vs actual assertion. Pass tab jab evidence expectation satisfy kare.'],
+  [/mockito/,'Movie stunt double: real payment/email service ko test me call na karke controlled collaborator use karo.'],
+  [/rest assured/,'API inspector: request build, send, phir response status/body/header ko explicit assertions se inspect.'],
+  [/component testing/,'Car engine ko car se bahar but realistic dependencies ke saath test karna—component boundary real, external world controlled.'],
+  [/contract testing/,'Do teams ke beech signed agreement: consumer expected request/response define karta hai; provider verify karta hai promise break nahi hua.'],
+  [/testcontainers/,'Temporary test lab: test start par real PostgreSQL/Kafka container lao, test ke baad discard.'],
+  [/dependency injection|ioc/,'Restaurant manager ingredients/tools chef ko supply karta hai. Chef khud dependency create nahi karta, isliye replacement aur testing easy.'],
+  [/bean lifecycle/,'Employee join-to-exit lifecycle: create → dependencies set → initialization → use → cleanup. Spring bean hooks isi lifecycle par operate karte hain.'],
+  [/profile/,'Same app ki dev/test/prod settings—code same, selected environment configuration change hoti hai.'],
+  [/rest controller/,'Hotel reception: HTTP request receive, correct service desk ko forward, formatted response return. Reception khud business logic nahi.'],
+  [/service layer/,'Restaurant flow: controller waiter hai, service chef/business rules, repository store/database interaction.'],
+  [/validation/,'Airport document check: request process hone se pehle required fields/rules validate; invalid input early reject.'],
+  [/actuator/,'Car dashboard: health, metrics aur status indicators operational visibility dete hain without engine kholna.'],
+  [/jpa|entity|repository/,'Translator plus librarian: entity Java object ko persistent record semantics deta hai; repository data access operations expose karta hai.'],
+  [/flyway/,'Database ka versioned renovation log: V1, V2, V3 migrations exact order me apply so environments same schema history follow karein.'],
+  [/microservice|service boundar/,'Company departments: payments, orders, notifications ki ownership clear. Har class ko service banana microservices nahi; boundary meaningful honi chahiye.'],
+  [/api gateway/,'Office main reception/security gate: external traffic route aur common policies apply; downstream business ownership replace nahi karta.'],
+  [/observability|distributed tracing/,'Courier parcel tracking ID: request multiple services cross kare to same trace context se journey reconstruct karte ho.'],
+  [/kafka basics|producer|consumer|offset|consumer group/,'Newspaper distribution: producer publish karta hai, durable log order retain karta hai, subscriber groups apni progress/offset track karte hain.'],
+  [/retry|dlq/,'Delivery failed: limited retries; repeatedly failing parcel dead-letter desk me investigation ke liye. Infinite retry main line block kar sakta hai.'],
+  [/idempotency/,'Lift button 5 baar press karne se 5 lifts order nahi hone chahiye. Same request repeat ho to duplicate side effect avoid.'],
+  [/dockerfile|docker basics/,'Shipping container: image standardized packed template; container us template ka running process. Same package different machines par consistent setup deta hai.'],
+  [/docker compose/,'Mini local city plan: app, DB, Kafka services ek file me define aur common network me start.'],
+  [/jenkins|github actions/,'Automated factory line: checkout → build → test → scan → package. Har commit same gates se pass hota hai.'],
+  [/chatclient|prompt/,'AI ko structured brief dena: system instruction manager policy, user request task, context evidence. Clear roles ambiguity reduce karte hain.'],
+  [/embedding|vector store|retrieval/,'Library books ko semantic coordinates dena: similar meaning wale documents vector space me paas aa sakte hain, query nearest candidates retrieve karti hai.'],
+  [/tool calling|mcp tool/,'Assistant request suggest karta hai, but locked room kholne se pehle application permission validate karti hai. Model request authorization nahi.'],
+  [/rag|grounding/,'Open-book exam: relevant notes retrieve karke answer do aur evidence se grounded raho, memory se guess nahi.'],
+  [/chunking/,'Long textbook ko searchable meaningful sections me todna—bahut bada chunk noisy, bahut chhota chunk context lose.'],
+  [/evaluation|guardrail/,'Driving test plus guard rail: evaluation measure karta hai behavior kitna correct; guardrail unsafe/invalid path constrain karta hai.']
+ ];
+ for(const [re,v] of rules) if(re.test(t)) return v;
+ return 'Real-life view: **'+l.topic+'** ko '+l.module.replace(/^\d+\.\s*/,'')+' ke ek focused rule/tool ki tarah dekho. Pehle problem identify karo, phir syntax ko us problem ka solution samjho.';
+}
+function depthPoints(l){
+ const pts=[];
+ const walk=(l.focusedWalk||'').split(/(?<=[.!?])\s+/).map(x=>x.trim()).filter(x=>x.length>20);
+ for(const x of walk.slice(0,5)) pts.push(x);
+ if(pts.length<3 && Array.isArray(l.walk)) for(const x of l.walk.slice(0,4)) if(!pts.includes(x)) pts.push(x);
+ return pts.slice(0,6);
+}
+
 function diagramBox(l){
  const steps=l.diagram||[];if(!steps.length)return '';
  const height=steps.length*88;
@@ -55,9 +207,9 @@ function renderLesson(){
  $('#chapter-label').textContent=l.module;$('#outline-title').textContent=l.topic;
  $('#lesson-content').innerHTML=`<div class="lesson-header"><button type="button" id="all-topics" class="quiet">All topics / syllabus</button><div class="lesson-meta"><span class="badge">LESSON ${String(current+1).padStart(2,'0')} / ${course.lessons.length}</span><span>${esc(l.module)}</span><span>~${l.minutes} min + practice</span></div><h2>${esc(l.topic)}</h2><p>Read first. Trace the code. Apply it. Then replay it at your pace.</p></div>
  ${complete?'<div class="completion-banner">✓ You marked this lesson complete. Revisit any section whenever you need it.</div>':''}
- <section class="lesson-block" id="reading"><div class="block-title"><span class="step">01</span><h3>Read & understand</h3><span class="type">HINGLISH · CONCEPT FIRST</span></div>${l.concept.map(p=>`<p>${rich(p)}</p>`).join('')}${diagramBox(l)}${l.extra?`<h4>Uses ko alag-alag samjho</h4><div class="usage-list">${l.extra.map(n=>`<div><h5><code>${esc(n[0])}</code></h5><p>${rich(n[1])}</p></div>`).join('')}</div>`:''}<div class="mistake-box"><h4>Common mistake · kyun hoti hai?</h4><p>${rich(l.pitfall)}</p></div><details class="chapter-context"><summary>Connect this topic to the chapter</summary>${l.chapterConcept.map(p=>`<p>${rich(p)}</p>`).join('')}</details><div class="lesson-references"><strong>Further reading</strong><a href="${esc(l.reference)}" target="_blank" rel="noopener">Official chapter reference</a><a href="${l.topic==='this Keyword'?'https://www.geeksforgeeks.org/java/java-this-keyword/':'https://www.geeksforgeeks.org/java/java/'}" target="_blank" rel="noopener">GeeksforGeeks ${l.topic==='this Keyword'?'this keyword':'Java topic index'}</a></div>
+ <section class="lesson-block" id="reading"><div class="block-title"><span class="step">01</span><h3>Read & understand</h3><span class="type">HINGLISH · CONCEPT FIRST</span></div>${l.concept.map(p=>`<p>${rich(p)}</p>`).join('')}<div class="why-card"><h4>Why do we need ${esc(l.topic)}?</h4><p>${rich(whyFor(l))}</p></div><div class="analogy-card"><span class="analogy-label">REAL-LIFE ANALOGY</span><h4>Dimag me picture banao</h4><p>${rich(analogyFor(l))}</p></div><div class="deep-breakdown"><h4>Concept ko layer-by-layer samjho</h4><ol>${depthPoints(l).map(x=>`<li>${rich(x)}</li>`).join('')}</ol></div>${diagramBox(l)}${l.extra?`<h4>Uses ko alag-alag samjho</h4><div class="usage-list">${l.extra.map(n=>`<div><h5><code>${esc(n[0])}</code></h5><p>${rich(n[1])}</p></div>`).join('')}</div>`:''}<div class="mistake-box"><h4>Common mistake · kyun hoti hai?</h4><p>${rich(l.pitfall)}</p></div><details class="chapter-context"><summary>Connect this topic to the chapter</summary>${l.chapterConcept.map(p=>`<p>${rich(p)}</p>`).join('')}</details><div class="lesson-references"><strong>Further reading</strong><a href="${esc(l.reference)}" target="_blank" rel="noopener">Official chapter reference</a><a href="${l.topic==='this Keyword'?'https://www.geeksforgeeks.org/java/java-this-keyword/':'https://www.geeksforgeeks.org/java/java/'}" target="_blank" rel="noopener">GeeksforGeeks ${l.topic==='this Keyword'?'this keyword':'Java topic index'}</a></div>
  ${(l.notes||[]).length?`<div class="topic-notes">${l.notes.map((n,i)=>`<div class="concept-note" id="concept-${i}"><h4>${esc(n[0])}</h4><p>${rich(n[1])}</p></div>`).join('')}</div>`:''}${markCheck('reading')}</section>
- <section class="lesson-block" id="java"><div class="block-title"><span class="step">02</span><h3>${esc(l.topic)} · focused example</h3><span class="type">TRACE THE LOGIC</span></div>${codeBox(l.focusedCode,l.snippetLabel)}<p class="lesson-tip">Focused snippets may need a main method, imports or the stated project dependencies. Commands, configuration and policy outlines are labeled in the example.</p><details class="output"><summary>Predict first · reveal output or behavior</summary><pre>${esc(l.focusedOutput)}</pre></details><h4>Code ka step-by-step meaning</h4><p>${rich(l.focusedWalk)}</p><details class="chapter-workshop"><summary>Complete chapter workshop · ${esc(l.relatedWorkshop)}</summary><p>${rich(l.normal)}</p>${codeBox(l.code,'COMPLETE CHAPTER EXAMPLE')}<div class="run"><strong>Run the workshop · </strong>${esc(l.run)}</div><pre class="workshop-output">${esc(l.output)}</pre><ol class="walk">${l.walk.map(w=>`<li>${rich(w)}</li>`).join('')}</ol></details>${markCheck('java')}</section>
+ <section class="lesson-block" id="java"><div class="block-title"><span class="step">02</span><h3>${esc(l.topic)} · focused example</h3><span class="type">TRACE THE LOGIC</span></div>${codeBox(l.focusedCode,l.snippetLabel)}<p class="lesson-tip">Focused snippets may need a main method, imports or the stated project dependencies. Commands, configuration and policy outlines are labeled in the example.</p><details class="output"><summary>Predict first · reveal output or behavior</summary><pre>${esc(l.focusedOutput)}</pre></details><h4>Code ka step-by-step meaning</h4><p>${rich(l.focusedWalk)}</p><div class="real-example"><div class="real-example-head"><span>EXAMPLE 2 · COMPLETE PROGRAM</span><strong>Ab concept ko bigger runnable example me dekho</strong></div><p>${rich(l.normal)}</p>${codeBox(l.code,'COMPLETE RUNNABLE / CHAPTER EXAMPLE')}<div class="run"><strong>How to run · </strong>${esc(l.run)}</div><details class="output" open><summary>Expected output</summary><pre>${esc(l.output)}</pre></details><h4>Line-by-line / step-by-step explanation</h4><ol class="walk">${l.walk.map(w=>`<li>${rich(w)}</li>`).join('')}</ol></div><details class="chapter-workshop"><summary>Complete chapter workshop · ${esc(l.relatedWorkshop)}</summary><p>${rich(l.normal)}</p>${codeBox(l.code,'COMPLETE CHAPTER EXAMPLE')}<div class="run"><strong>Run the workshop · </strong>${esc(l.run)}</div><pre class="workshop-output">${esc(l.output)}</pre><ol class="walk">${l.walk.map(w=>`<li>${rich(w)}</li>`).join('')}</ol></details>${markCheck('java')}</section>
  <section class="lesson-block" id="qa"><div class="block-title"><span class="step">03</span><h3>Apply it in QA</h3><span class="type">CHAPTER APPLICATION</span></div><div class="qa-callout"><p>${rich(l.qa)}</p></div>${codeBox(l.qacode,'QA / SDET EXAMPLE')}${l.qaOutput?`<h4>Expected output</h4><pre class="workshop-output">${esc(l.qaOutput)}</pre><p>${esc(l.qaRun)}</p>`:''}<h4>${esc(l.topic)} · QA checkpoint</h4><p>${rich(l.pitfall)} Is failure ko test mein reproduce karo; corrected behavior ke liye meaningful assertion likho.</p><p class="lesson-tip">Examples run in your local JDK or the stated project. This page does not compile Java. Shared chapter examples connect the focused topic to a complete application.</p>${l.where?.length?`<ul class="walk">${l.where.map(w=>`<li>${rich(w)}</li>`).join('')}</ul>`:''}${markCheck('qa')}</section>
  <section class="lesson-block" id="watch"><div class="block-title"><span class="step">04</span><h3>Watch & listen</h3><span class="type">HINGLISH WALKTHROUGH</span></div><p>A paced, narrated slide walkthrough of this lesson. Follow the captions, pause to think, and step through the code.</p><div class="player"><div class="player-top"><span class="dot"></span><span>JAVA LAB / NARRATED SLIDES</span><span id="slide-count"></span></div><div class="slide" id="slide" aria-live="polite"></div><input class="seek" id="seek" type="range" min="0" max="${l.slides.length-1}" value="0" aria-label="Walkthrough slide"><div class="player-controls"><button id="slide-prev" aria-label="Previous slide">←</button><button id="play">▶ Play</button><button id="slide-next" aria-label="Next slide">→</button><button id="restart">↺ Restart</button><span id="play-state" class="small">Ready</span></div><div class="player-settings"><label>Speed <select id="speed"><option value="0.7">0.7× · slow</option><option value="0.85">0.85×</option><option value="1">1×</option><option value="1.15">1.15×</option></select></label><label><input type="checkbox" id="audio" ${prefs.audio?'checked':''}> Narration</label><label>Voice <select id="voice" aria-label="Narration voice"><option value="">Device default</option></select></label></div><p class="player-note" id="audio-note">Device speech reads Hinglish captions. Voice quality and availability depend on your browser. This is an interactive walkthrough, not a recorded video.</p></div><details class="transcript"><summary>Read the complete walkthrough transcript (${l.slides.length} scenes)</summary><ol>${l.slides.map(s=>`<li><strong>${esc(s.title)}</strong><br>${rich(s.text)}</li>`).join('')}</ol></details>${markCheck('watch')}</section>
  <section class="lesson-block" id="practice"><div class="block-title"><span class="step">+</span><h3>Make it stick</h3></div><div class="practice-task">${rich(l.practice)}</div>${l.interview.map(q=>`<details class="answer"><summary>${esc(q[0])}</summary><p>${rich(q[1])}</p></details>`).join('')}<label class="notes-label" for="notes">Your notes</label><textarea id="notes" placeholder="What clicked? What would you like to try next?">${esc(prefs.notes[l.id]||'')}</textarea><p class="lesson-tip" id="notes-status">Notes and progress are saved only in this browser.</p></section>
