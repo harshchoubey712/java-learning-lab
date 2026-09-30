@@ -202,10 +202,10 @@ function topicRich(l,s){
  const pattern=terms.length?new RegExp('('+terms.map(escRegex).join('|')+')','gi'):null;
  return raw.split(/(`[^`]*`)/g).map(part=>{
    if(part.startsWith('`')&&part.endsWith('`')) return '<code>'+esc(part.slice(1,-1))+'</code>';
-   if(!pattern) return esc(part).replace(/\\*\\*([^*]+)\\*\\*/g,'<strong>$1</strong>');
+   if(!pattern) return esc(part).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
    const chunks=part.split(pattern);
    return chunks.map((chunk,i)=>{
-     const safe=esc(chunk).replace(/\\*\\*([^*]+)\\*\\*/g,'<strong>$1</strong>');
+     const safe=esc(chunk).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
      return i%2===1?'<mark class="keyword-mark">'+safe+'</mark>':safe;
    }).join('');
  }).join('');
