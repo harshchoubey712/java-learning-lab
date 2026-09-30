@@ -92,7 +92,10 @@ function analogyFor(l){
   [/jdk vs jre vs jvm/,'Restaurant analogy: **JDK = full kitchen plus chef tools**, **JRE = required runtime setup**, aur **JVM = actual engine jo bytecode execute karta hai**. Run karne wale user ko compiler tools zaroori nahi.'],
   [/input & output/,'Reception desk socho: input wo information hai jo visitor deta hai; program usko process karta hai; output receipt ya display hai jo system wapas deta hai.'],
   [/identifier/,'Office me har employee ka meaningful badge-name hota hai. Identifier variable, method ya class ko wahi readable naam deta hai; naming rules badge-format rules jaise hain.'],
+  [/super keyword/,'Family inheritance socho: child class apne parent ka constructor ya overridden behavior explicitly access karna chahe to super use karti hai. super(...) parent constructor ko aur super.method() parent implementation ko target karta hai.'],
+  [/this keyword/,'Meeting me “main/current person” bolna this jaisa hai. this.name current object ka field identify karta hai, aur this(...) same class ke doosre constructor ko call kar sakta hai.'],
   [/keyword/,'Traffic sign STOP ka fixed meaning hota hai; tum usko apne variable ka custom meaning nahi de sakte. Java keyword ka compiler-defined meaning fixed hota hai.'],
+
   [/variable/,'Variable ko **labelled box** samjho: label = name, box ka allowed shape = data type, andar current value. Value replace ho sakti hai, type rule fixed rehta hai.'],
   [/data type/,'Warehouse me liquid tank, document drawer aur pallet alag cheezein hold karte hain. Data type compiler ko batata hai kis kind ka value store hoga aur kaunse operations valid hain.'],
   [/wrapper/,'Primitive ko courier parcel me wrap karna socho. int lightweight raw value hai; Integer us value ko object form deta hai jise generic/object APIs use kar sakti hain.'],
@@ -114,8 +117,6 @@ function analogyFor(l){
   [/string/,'Printed boarding pass analogy: String immutable hai—existing printed text change nahi hota; modified text ke liye naya String value banta hai.'],
   [/classes & objects/,'Class **house blueprint** hai; object us blueprint se bana actual house. Blueprint structure/behavior define karta hai, har house ki own state ho sakti hai.'],
   [/constructor/,'New employee onboarding checklist: object create hote hi initial valid state set karni hoti hai. Constructor wahi setup phase hai.'],
-  [/this keyword/,'Meeting me **main khud / current person** bolna this jaisa hai. Same-name parameter ho to this.name current object ka field explicitly identify karta hai.'],
-  [/super keyword/,'Child record se parent record ko explicitly access karna super jaisa hai—parent implementation ya constructor select hota hai.'],
   [/encapsulation/,'ATM analogy: account balance ko directly database field edit karke nahi badalte; deposit/withdraw controlled operations se state change hoti hai.'],
   [/inheritance/,'Vehicle family: Car ek Vehicle is-a relation ho sakta hai aur common behavior inherit kar sakta hai, while car-specific behavior add karta hai.'],
   [/polymorphism/,'Universal socket/remote: same contract se different devices apna implementation use karte hain. Caller contract use karta hai; runtime object actual behavior deta hai.'],
@@ -194,10 +195,20 @@ function depthPoints(l){
 
 function escRegex(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\function masterExplanation(l){');}
 function topicRich(l,s){
- let html=esc(String(s||''));
- const terms=(l.topic||'').split(/[^A-Za-z0-9+#.]+/).filter(w=>w.length>3).slice(0,4);
- for(const term of terms){const re=new RegExp('\\b'+escRegex(term)+'\\b','gi');html=html.replace(re,m=>'<mark class="keyword-mark">'+m+'</mark>');}
- return html.replace(/`([^`]+)`/g,'<code>$1</code>');
+ const raw=String(s||'');
+ const stop=new Set(['keyword','keywords','java','basic','basics','introduction','overview','example','examples']);
+ const terms=[...new Set((l.topic||'').split(/[^A-Za-z0-9+#.]+/).filter(w=>w.length>2&&!stop.has(w.toLowerCase())))]
+   .sort((a,b)=>b.length-a.length).slice(0,5);
+ const pattern=terms.length?new RegExp('('+terms.map(escRegex).join('|')+')','gi'):null;
+ return raw.split(/(`[^`]*`)/g).map(part=>{
+   if(part.startsWith('`')&&part.endsWith('`')) return '<code>'+esc(part.slice(1,-1))+'</code>';
+   if(!pattern) return esc(part).replace(/\\*\\*([^*]+)\\*\\*/g,'<strong>$1</strong>');
+   const chunks=part.split(pattern);
+   return chunks.map((chunk,i)=>{
+     const safe=esc(chunk).replace(/\\*\\*([^*]+)\\*\\*/g,'<strong>$1</strong>');
+     return i%2===1?'<mark class="keyword-mark">'+safe+'</mark>':safe;
+   }).join('');
+ }).join('');
 }
 function shortCode(code,maxLines=9){
  const lines=String(code||'').split('\n');
