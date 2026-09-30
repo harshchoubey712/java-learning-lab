@@ -94,3 +94,16 @@ header nav a{font-size:.875rem;display:inline}
 @media (max-width:700px){
   .why-card,.analogy-card,.deep-breakdown,.real-example{padding:16px 15px;border-radius:14px}
 }
+
+.use-card,.rules-card{
+  margin:20px 0;
+  border-radius:16px;
+  padding:18px 20px;
+  border:1px solid #d8e4df;
+  background:#fff;
+}
+.use-card h4,.rules-card h4{margin:0 0 10px;color:#153f36}
+.use-card ul,.rules-card ul{margin:0;padding-left:1.25rem}
+.use-card li,.rules-card li{margin:.65rem 0;line-height:1.6}
+.rules-card{background:#f7f9fa}
+.rules-card strong{color:#234f45}
