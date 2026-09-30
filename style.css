@@ -119,3 +119,54 @@ header nav a{font-size:.875rem;display:inline}
 .line-row code{white-space:pre-wrap;overflow-wrap:anywhere;background:#eef3ef;padding:.55rem .65rem;border-radius:8px;display:block}
 .line-row p{margin:.15rem 0;line-height:1.55}
 @media (max-width:760px){.line-row{grid-template-columns:1fr;gap:.45rem}.master-explanation,.runtime-card{padding:1rem}}
+
+/* article-depth-3: GFG-inspired learning rhythm, original Java with Harsh styling */
+:root{--article-green:#2f7d4a;--article-green-dark:#1f5d37;--article-soft:#f4faf6;--article-yellow:#fff3b8;--article-border:#d8e2dc}
+.lesson-block{border-radius:10px;border-color:#dfe5e1;box-shadow:0 1px 2px rgba(20,45,34,.03);padding:30px}
+.block-title{border-bottom:1px solid #e4e9e6;padding-bottom:14px;margin-bottom:24px}
+.block-title h3{position:relative;font-family:Georgia,serif;font-size:25px}
+.block-title h3:after{content:"";display:block;width:58px;height:3px;background:var(--article-green);border-radius:3px;margin-top:8px}
+.master-explanation{background:#fff;border:0;border-radius:0;padding:0;margin:26px 0}
+.master-explanation>h4{font:700 22px/1.35 system-ui,-apple-system,sans-serif;color:#173d2b;margin:4px 0 8px;padding-bottom:9px;border-bottom:2px solid #dfe8e2}
+.master-intro{background:#f7f9f8;border-left:4px solid var(--article-green);padding:11px 14px;margin:12px 0 22px!important;border-radius:0 7px 7px 0;color:#4c5d53}
+.concept-point{padding:0 0 28px;margin:0 0 28px;border-bottom:1px solid #e4e9e6}
+.concept-point:last-child{border-bottom:0}
+.concept-point h5{display:flex;align-items:center;gap:10px;margin:0 0 10px;font:700 18px/1.4 system-ui,-apple-system,sans-serif;color:#1c3f2c}
+.concept-point h5 span{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--article-green);color:#fff;font:700 12px/1 system-ui}
+.concept-text{font-size:15px!important;line-height:1.75!important;margin:0 0 14px!important;color:#2f3e36}
+.keyword-mark{background:linear-gradient(transparent 55%,#dff1c7 55%);color:#143e28;font-weight:700;padding:0 1px}
+.inline-example{margin:14px 0 0;padding:15px 16px 14px;border:1px solid #d9e4dc;border-left:4px solid var(--article-green);border-radius:7px;background:var(--article-soft)}
+.inline-example.analogy{background:#fffbea;border-left-color:#c79a24}
+.inline-example.qa{background:#f3f8ff;border-left-color:#4678b7}
+.inline-example.mistake{background:#fff6f2;border-left-color:#c45c3d}
+.inline-example.check,.inline-example.practice{background:#faf7ff;border-left-color:#7961a8}
+.inline-example.runtime{background:#f5fbfa;border-left-color:#42877c}
+.example-label{font:800 11px/1.2 system-ui;letter-spacing:.09em;color:var(--article-green-dark);margin-bottom:7px}
+.inline-example.analogy .example-label{color:#8b6915}.inline-example.qa .example-label{color:#315f97}.inline-example.mistake .example-label{color:#9b3f27}
+.inline-example p{font-size:13.5px!important;line-height:1.7!important;margin:0 0 8px!important}
+.mini-code{margin:10px 0 0;padding:14px 15px;background:#202b27;color:#e8f3eb;border-radius:7px;overflow:auto;font:12px/1.65 var(--mono);white-space:pre}
+.mini-output{margin-top:10px;background:#fff;border:1px solid #dfe5e1;border-radius:6px;padding:9px 11px}
+.mini-output strong{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#50645a}
+.mini-output pre{margin:6px 0 0;white-space:pre-wrap;font:12px/1.55 var(--mono)}
+.why-card,.analogy-card,.use-card,.mistake-box{border-radius:8px}
+.why-card h4,.analogy-card h4,.use-card h4,.mistake-box h4,.real-example h4{display:inline-block;padding-bottom:4px;border-bottom:2px solid #b8d6c2}
+.analogy-card h4{border-bottom-color:#d7c46f}.mistake-box h4{border-bottom-color:#e0a28e}
+p code,li code{background:#eef6f0;color:#155c35;border:1px solid #d8e8dd;padding:2px 5px;font-weight:650}
+.codebox{border-radius:8px;background:#1f2925;border:1px solid #253c31;box-shadow:none}
+.codebar{background:#273b31;color:#d5e7da;padding:10px 13px;border-bottom:1px solid #385044;font-size:10px;letter-spacing:.05em}
+.codebox pre{font-size:12.5px;line-height:1.7}
+.output{background:#fafbfa;border-left:4px solid #789887}
+.qa-callout{background:#f4f8ff;border-left:4px solid #4e79ad;padding:12px 15px;border-radius:0 7px 7px 0}
+.lesson-references a{color:#236a3d;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+@media(max-width:700px){
+ .lesson-block{padding:18px 15px;margin-bottom:14px}
+ .block-title{align-items:flex-start;flex-wrap:wrap}
+ .block-title h3{font-size:22px}
+ .block-title .type{width:100%;margin-left:40px;margin-top:-5px}
+ .master-explanation>h4{font-size:19px}
+ .concept-point h5{font-size:16px}
+ .concept-text{font-size:14.5px!important;line-height:1.7!important}
+ .inline-example{padding:13px 12px}
+ .mini-code{font-size:11.5px}
+ .why-card,.analogy-card,.use-card,.real-example{padding:15px 13px}
+}
